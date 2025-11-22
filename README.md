@@ -61,7 +61,7 @@ Option 2: Download ZIP
 
 Open Command Prompt or Terminal in the bot folder and run:
 
-python -m pip install discord.py
+```python -m pip install discord.py```
 
 ---
 
@@ -132,7 +132,7 @@ whitelist.json
 1. Open Command Prompt or Terminal in the bot folder
 2. Run:
 
-python bot.py
+```python bot.py```
 
 3. If successful, terminal prints: Logged in as BotName
 4. The bot is now online
@@ -141,8 +141,9 @@ python bot.py
 
 ## Commands
 
-!help - Explains how to use the !verify command.
-!verify - Users type this in the server to start verification. Bot DMs them for email.  
+```!help - Explains how to use the !verify command.```
+
+```!verify - Users type this in the server to start verification. Bot DMs them for email.```
 
 ---
 
