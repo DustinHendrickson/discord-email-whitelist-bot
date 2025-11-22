@@ -9,7 +9,6 @@ Designed to be easy to set up for non-technical users.
 
 - Lets users verify themselves with an email.
 - Assigns the Verified role if their email is on the whitelist.
-- Unlocks channels automatically for verified users.
 - Dynamic whitelist: updates immediately without restarting the bot.
 
 ---
@@ -40,7 +39,7 @@ Option 1: Using Git
 1. Install Git: https://git-scm.com/downloads
 2. Open Command Prompt (Windows) or Terminal (macOS/Linux)
 3. Navigate to the folder where you want the bot using `cd`
-4. Run `git clone https://github.com/YOUR_GITHUB_USERNAME/WhitelistBot.git`
+4. Run `git clone https://github.com/DustinHendrickson/WhitelistBot.git`
 5. Navigate into the folder using `cd WhitelistBot`
 
 Option 2: Download ZIP
@@ -112,20 +111,20 @@ python -m pip install discord.py
 ## Step 9: Create JSON Configuration Files
 
 config.json
-
+```
 {
   "token": "YOUR_BOT_TOKEN",
   "guild_id": 123456789012345678,
   "role_name": "Verified"
 }
-
+```
 whitelist.json
-
+```
 [
   "allowed1@example.com",
   "allowed2@example.com"
 ]
-
+```
 ---
 
 ## Step 10: Launch the Bot
