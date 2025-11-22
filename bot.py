@@ -16,7 +16,8 @@ intents.messages = True
 intents.guilds = True
 intents.members = True
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+# Disable default help so custom !help works
+bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 @bot.event
 async def on_ready():
@@ -62,11 +63,17 @@ async def verify(ctx, *, email: str = None):
     else:
         await ctx.send("Email not on whitelist. Access denied.")
 
-# Optional: show whitelist (for admins)
+# Custom help command
 @bot.command()
-@commands.has_permissions(administrator=True)
-async def show_whitelist(ctx):
-    whitelist = load_whitelist()
-    await ctx.send("Whitelist:\n" + "\n".join(whitelist))
+async def help(ctx):
+    help_text = (
+        "📌 **Verify Command Help** 📌\n\n"
+        "Use the following command to verify your email and gain access to the server:\n"
+        "`!verify your_email@example.com`\n\n"
+        "- Replace `your_email@example.com` with the email you registered.\n"
+        "- If your email is in the whitelist, the bot will assign you the access role.\n"
+        "- If your email is not on the whitelist, access will be denied.\n"
+    )
+    await ctx.send(help_text)
 
 bot.run(TOKEN)

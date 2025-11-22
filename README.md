@@ -141,8 +141,8 @@ python bot.py
 
 ## Commands
 
+!help - Explains how to use the !verify command.
 !verify - Users type this in the server to start verification. Bot DMs them for email.  
-!show_whitelist - Admin-only, lists all emails in the whitelist.
 
 ---
 
