@@ -1,7 +1,6 @@
 # WhitelistBot
 
 A Discord bot for verifying users via email and giving them a Verified role.  
-Designed to be easy to set up for non-technical users.
 
 ---
 
@@ -150,12 +149,10 @@ whitelist.json
 ## User Verification Flow
 
 1. User joins the server
-2. User types !verify anywhere in the server
-3. Bot sends a DM to the user
-4. User replies with their email in DM
-5. Bot checks email against whitelist.json
-6. If allowed, Verified role is applied
-7. Verified role unlocks configured channels
+2. User DM's the bot !verify their_email@gmail.com
+3. Bot checks email against whitelist.json
+4. If allowed, Verified role is applied
+5. Verified role unlocks configured channels
 
 ---
 
