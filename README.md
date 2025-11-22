@@ -9,6 +9,7 @@ A Discord bot for verifying users via email and giving them a Verified role.
 - Lets users verify themselves with an email.
 - Assigns the Verified role if their email is on the whitelist.
 - Dynamic whitelist: updates immediately without restarting the bot.
+- Imports mailchip email lists into the whitelist.json
 
 ---
 
@@ -25,8 +26,10 @@ A Discord bot for verifying users via email and giving them a Verified role.
 Create a folder anywhere you want and place these files inside:
 
 - bot.py (the bot code)
+- import_mailchimp.py (importer code)
 - config.json (bot configuration)
 - whitelist.json (emails for verification)
+- /imports/ (folder for imported csv files)
 - README.md (this file)
 
 ---
@@ -126,7 +129,17 @@ whitelist.json
 ```
 ---
 
-## Step 10: Launch the Bot
+## Step 10: Bulk Update Whitelist from Mailchimp CSVs
+
+1. Place exported Mailchimp CSV files into the `/imports/` folder.
+2. Each CSV should contain a column with emails, default header: `Email Address`. (Can be changed in the python file but this is the default from Mailchimp)
+3. Run the script `update_whitelist.py`:
+4. The script will merge all emails from CSVs into `whitelist.json` automatically.
+5. After updating, users in the CSV can verify using the bot immediately.
+
+---
+
+## Step 11: Launch the Bot
 
 1. Open Command Prompt or Terminal in the bot folder
 2. Run:
