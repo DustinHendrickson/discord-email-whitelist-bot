@@ -1,5 +1,7 @@
 {
   "token": "",
   "guild_id": 123456789,
-  "role_name": "Verified"
+  "role_name": "Verified",
+  "sendgrid_api_key": "",
+  "from_email": ""
 }
