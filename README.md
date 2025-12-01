@@ -188,7 +188,7 @@ whitelist.json
 
 1. Place exported Mailchimp CSV files into the `/imports/` folder.
 2. Each CSV should contain a column with emails, default header: `Email Address`. (Can be changed in the python file but this is the default from Mailchimp)
-3. Run the script `update_whitelist.py`:
+3. Run the script `import_mailchimp.py`:
 4. The script will merge all emails from CSVs into `whitelist.json` automatically.
 5. After updating, users in the CSV can verify using the bot immediately.
 
@@ -219,7 +219,7 @@ whitelist.json
 ## User Verification Flow
 
 1. User joins the server
-2. User types `!verify their_email@example.com` in the server
+2. User types `!verify their_email@example.com` in the bot's DMs
 3. Bot checks if email is on whitelist; if not, denies access
 4. If allowed, bot generates a 6-character code and emails it to the user
 5. User types `!verify their_email@example.com CODE` within 30 minutes
