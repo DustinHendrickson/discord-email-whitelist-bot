@@ -2,6 +2,6 @@
   "token": "",
   "guild_id": 123456789,
   "role_name": "Verified",
-  "sendgrid_api_key": "",
+  "smtp2go_api_key": "",
   "from_email": ""
 }

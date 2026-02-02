@@ -5,8 +5,7 @@ import os
 import random
 import string
 from datetime import datetime, timedelta
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+import requests
 
 # Load config from JSON
 with open("config.json", "r") as f:
@@ -15,7 +14,7 @@ with open("config.json", "r") as f:
 TOKEN = config["token"]
 GUILD_ID = config["guild_id"]
 ROLE_NAME = config["role_name"]
-SENDGRID_API_KEY = config["sendgrid_api_key"]
+SMTP2GO_API_KEY = config["smtp2go_api_key"]
 FROM_EMAIL = config["from_email"]
 
 intents = discord.Intents.default()
@@ -68,17 +67,31 @@ def save_pending_verifications(pending):
         json.dump(data, f)
 
 def send_verification_email(email, code):
-    """Send verification email using SendGrid"""
-    message = Mail(
-        from_email=FROM_EMAIL,
-        to_emails=email,
-        subject='Your Verification Code',
-        html_content=f'<p>Your verification code is: <strong>{code}</strong></p><p>This code expires in 30 minutes.</p>'
-    )
+    """Send verification email using SMTP2GO API"""
     try:
-        sg = SendGridAPIClient(SENDGRID_API_KEY)
-        response = sg.send(message)
-        return response.status_code == 202
+        # SMTP2GO API endpoint
+        url = "https://api.smtp2go.com/v3/email/send"
+        
+        # Prepare email data
+        payload = {
+            "api_key": SMTP2GO_API_KEY,
+            "to": [email],
+            "sender": FROM_EMAIL,
+            "subject": "Your Verification Code",
+            "html_body": f"<p>Your verification code is: <strong>{code}</strong></p><p>This code expires in 30 minutes.</p>"
+        }
+        
+        # Send request
+        response = requests.post(url, json=payload)
+        
+        # Check response
+        if response.status_code == 200:
+            result = response.json()
+            return result.get('data', {}).get('succeeded', 0) > 0
+        else:
+            print(f"SMTP2GO API error: {response.status_code} - {response.text}")
+            return False
+            
     except Exception as e:
         print(f"Error sending email: {e}")
         return False

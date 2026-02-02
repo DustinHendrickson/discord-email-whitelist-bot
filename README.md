@@ -18,7 +18,7 @@ A Discord bot for verifying users via email and giving them a Verified role.
 - Windows, macOS, or Linux
 - Python 3.10 or newer (https://www.python.org/downloads/)
 - A Discord server where you can manage roles and add bots.
-- SendGrid account for email sending (https://sendgrid.com)
+- SMTP2GO account for email sending (https://www.smtp2go.com)
 
 ---
 
@@ -64,7 +64,7 @@ Option 2: Download ZIP
 
 Open Command Prompt or Terminal in the bot folder and run:
 
-```python -m pip install discord.py sendgrid```
+```python -m pip install discord.py requests```
 
 ---
 
@@ -111,47 +111,37 @@ Open Command Prompt or Terminal in the bot folder and run:
 
 ---
 
-## Step 9: Set Up SendGrid for Email Verification
+## Step 9: Set Up SMTP2GO for Email Verification
 
-SendGrid is used to send verification codes to users' emails. Follow these steps carefully:
+SMTP2GO is used to send verification codes to users' emails. Follow these steps carefully:
 
-### 9.1: Create a SendGrid Account
-1. Go to https://sendgrid.com and click "Sign Up" (or "Get Started")
-2. Choose your plan (free tier allows 100 emails/day, which is sufficient for small servers)
+### 9.1: Create an SMTP2GO Account
+1. Go to https://www.smtp2go.com and click "Sign Up"
+2. Choose your plan (free tier allows 1,000 emails/month, which is sufficient for most servers)
 3. Verify your email address and complete the account setup
 
 ### 9.2: Verify Your Sender Email
-1. In your SendGrid dashboard, go to **Settings** → **Sender Authentication**
-2. Click **Verify a Single Sender**
-3. Fill in your details:
-   - **From Email**: The email address you want to send from (e.g., `noreply@yoursite.com`)
-   - **From Name**: Your bot's name or server name
-   - **Reply To**: Optional, can be the same as From Email
-4. SendGrid will send a verification email to that address
-5. Click the verification link in the email to confirm
+1. In your SMTP2GO dashboard, go to **Settings** → **Sender Domains**
+2. Add and verify your sender email address or domain
+3. Follow the verification instructions (check your email for verification link)
+4. This step ensures your emails are delivered successfully
 
 ### 9.3: Create an API Key
-1. In SendGrid dashboard, go to **Settings** → **API Keys**
-2. Click **Create API Key**
+1. In SMTP2GO dashboard, go to **Settings** → **API Keys**
+2. Click **Add API Key**
 3. Name it something like "Discord Bot Verification"
-4. Choose **Full Access** or **Restricted Access** (if restricted, ensure Mail Send is enabled)
-5. Click **Create & View**
-6. **Copy the API key immediately** - you won't be able to see it again!
+4. Set permissions to allow sending emails
+5. Click **Create**
+6. **Copy the API key immediately** - save it securely for config.json
 
-### 9.4: Configure Your Domain (Optional but Recommended)
-For better deliverability, set up domain authentication:
-1. Go to **Settings** → **Sender Authentication** → **Authenticate Your Domain**
-2. Follow the DNS setup instructions to add TXT records to your domain
-3. This helps emails land in inbox instead of spam
-
-### 9.5: Test Your Setup
-SendGrid has a free testing feature, but for production, ensure your API key and email are working.
+### 9.4: Test Your Setup
+SMTP2GO provides testing tools in the dashboard to verify your setup is working.
 
 **Important Notes:**
-- The free tier sends up to 100 emails per day
-- Keep your API key secure - never share it
-- If emails go to spam, check your sender reputation and consider domain authentication
-- SendGrid may require additional verification for high-volume sending
+- The free tier sends up to 1,000 emails per month
+- Keep your API key secure - never share it or commit it to version control
+- If emails go to spam, ensure your sender domain is verified
+- SMTP2GO provides detailed sending reports and analytics in the dashboard
 
 ---
 
@@ -163,7 +153,7 @@ config.json
   "token": "YOUR_BOT_TOKEN",
   "guild_id": 123456789012345678,
   "role_name": "Verified",
-  "sendgrid_api_key": "YOUR_SENDGRID_API_KEY",
+  "smtp2go_api_key": "YOUR_SMTP2GO_API_KEY",
   "from_email": "your_verified_email@example.com"
 }
 ```
@@ -172,7 +162,7 @@ config.json
 - `token`: Your Discord bot token from Developer Portal
 - `guild_id`: Your Discord server ID (right-click server name → Copy Server ID)
 - `role_name`: The role to assign after verification (default: "Verified")
-- `sendgrid_api_key`: Your SendGrid API key from Step 9.3
+- `smtp2go_api_key`: Your SMTP2GO API key from Step 9.3
 - `from_email`: The verified sender email from Step 9.2
 
 whitelist.json
@@ -238,22 +228,28 @@ whitelist.json
 
 ---
 
-## Troubleshooting SendGrid
+## Troubleshooting SMTP2GO
 
 ### Emails Not Sending
-- Check your API key is correct and has Mail Send permissions
-- Ensure the "from_email" is verified in SendGrid
-- Verify your SendGrid account isn't suspended
+- Check your API key is correct and has sending permissions
+- Ensure the "from_email" is verified in SMTP2GO
+- Verify your SMTP2GO account is active and not suspended
+- Check the bot's console output for specific error messages
 
 ### Emails Going to Spam
-- Set up domain authentication in SendGrid
+- Verify your sender domain in SMTP2GO
 - Use a reputable domain for your sender email
 - Avoid spam trigger words in email content
 
 ### API Errors
-- Check SendGrid dashboard for account status
-- Ensure you're not exceeding free tier limits (100 emails/day)
-- Verify API key hasn't expired
+- Verify your API key hasn't been revoked
+- Check SMTP2GO dashboard for API status
+- Ensure your API key has the correct permissions
+
+### Rate Limiting
+- Free tier: 1,000 emails per month
+- Check SMTP2GO dashboard for usage statistics
+- Upgrade your plan if you need higher limits
 
 ### Bot Not Responding
 - Check bot is online in Discord
